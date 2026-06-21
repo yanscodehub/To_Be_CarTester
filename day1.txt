@@ -1,0 +1,21 @@
+第一步：今晚花 1 小时，把“地基”打起来（环境搭建）
+
+不要去啃书，先把工具跑起来，建立手感。
+
+确认环境：如果你现在是 Windows（大概率），请直接安装 WSL2（Ubuntu）。车载工具链在 Linux 下最丝滑。
+
+安装核心武器：
+
+bash
+# 在 Ubuntu 终端里执行
+sudo apt update
+sudo apt install -y python3-pip can-utils net-tools
+pip3 install python-can cantools
+
+启动虚拟总线（这是你今晚的高光时刻）：
+
+sudo modprobe vcan
+sudo ip link add dev vcan0 type vcan
+sudo ip link set up vcan0
+
+验证：开两个终端，一个跑 candump vcan0，另一个跑 cansend vcan0 123#DEADBEEF。看到数据在跳吗？恭喜，你已经拥有了一条虚拟的“汽车神经”。
